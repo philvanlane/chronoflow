@@ -6,8 +6,10 @@
 
 ChronoFlow is a an empirical gyrochonology model that was developed using machine learning to characterize the rotational evolution of stars over the age and colour parameter spaces; specifically the de-reddened Gaia DR3 colour $(BP-RP)_0$. It also incorporate the effect of photometric uncertainty. We encourage you to read the full paper cited above to understand how the model was developed and tested, and its applicability to any use cases you may have.
 
+Here we show ChronoFlow's ability to model the probability density of a population of stars in rotation period-colour space as a function of time:
+
 <p align="center">
-  <img width = "400" src="./figures/cf_animation.gif"/>
+  <img width = "600" src="./figures/cf_animation.gif"/>
 </p>
 
 
