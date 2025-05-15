@@ -250,3 +250,101 @@ class ChronoFlow(object):
         logA_err = p16 - medLogA
 
         return medLogA, logA_Err, logA_err
+    
+    def calcProbsAtAge(self,
+                       logA_Myr,
+                       logCerr,
+                       res=200,
+                       logP_grid=None,
+                       BPRP_grid=None,
+        ):
+        """
+        Function to calculate the probabilities over a grid in colour and rotation periods, given a static age and photometric uncertainty.
+        Parameters:
+        logA_Myr : float
+            The log age value (in Myr).
+        logCerr : float
+            The log photometric uncertainty.
+        res : int
+            The resolution of the grid.
+        logP_grid : np.ndarray
+            The grid of log P_rot values to evaluate the probabilities.
+        BPRP_grid : np.ndarray
+            The grid of (BP-RP)_0 values to evaluate the probabilities.
+        Returns:
+        probs : np.ndarray
+            The probabilities over the grid in colour and rotation periods.
+        """
+    
+
+        if logP_grid is None:
+            logP_grid = np.linspace(self.bounds_logProt[0],
+                                    self.bounds_logProt[1],
+                                    res)
+        if BPRP_grid is None:
+            BPRP_grid = np.linspace(self.bounds_BPRP0[0],
+                                    self.bounds_BPRP0[1],
+                                    res)
+        
+        probs = np.zeros((res,res))
+        for i in range(res):
+            logP = logP_grid[i]
+            
+            for j in range(res):
+                BPRP0 = BPRP_grid[j]
+                probs[i,j] = self.calcLogLikelihood(
+                            logA_Myr=logA_Myr,
+                            BPRP0=BPRP0,
+                            logProt=logP,
+                            logCerr=logCerr,
+                            P_clmem=1,
+                            P_out=0.05)
+        return probs
+    
+    def calcProbsAtColour(self,
+                       BPRP0,
+                       logCerr,
+                       res=200,
+                       logP_grid=None,
+                       logA_Myr_grid=None,
+        ):
+        """
+        Function to calculate the probabilities over a grid in age and rotation periods, given a static colour and photometric uncertainty.
+        Parameters:
+        BPRP0 : float
+            The (BP-RP)_0 value.
+        logCerr : float
+            The log photometric uncertainty.
+        res : int
+            The resolution of the grid.
+        logP_grid : np.ndarray
+            The grid of log P_rot values to evaluate the probabilities.
+        logA_Myr_grid : np.ndarray
+            The grid of log age values to evaluate the probabilities.
+        Returns:
+        probs : np.ndarray
+            The probabilities over the grid in age and rotation periods.
+        """
+
+        if logP_grid is None:
+            logP_grid = np.linspace(self.bounds_logProt[0],
+                                    self.bounds_logProt[1],
+                                    res)
+        if logA_Myr_grid is None:
+            logA_Myr_grid = np.linspace(self.bounds_logA_Myr[0],
+                                        self.bounds_logA_Myr[1],
+                                        res)
+        probs = np.zeros((res,res))
+        for i in range(res):
+            logP = logP_grid[i]
+            
+            for j in range(res):
+                logA_Myr = logA_Myr_grid[j]
+                probs[i,j] = self.calcLogLikelihood(
+                            logA_Myr=logA_Myr,
+                            BPRP0=BPRP0,
+                            logProt=logP,
+                            logCerr=logCerr,
+                            P_clmem=1,
+                            P_out=0.05)
+        return probs
