@@ -17,7 +17,7 @@ Here we show ChronoFlow's ability to model the probability density of a populati
 
 ChronoFlow can be used to forward model the rotational evolution of stars given age, de-reddened Gaia DR3 colour $(BP-RP)_0$, and photometric uncertainty. It can also be used to estimate stellar ages given observed $(BP-RP)_0$ and rotation period. 
 
-Refer to the ***tutorials*** folder for notebook examples that can be used to infer stellar ages and forward model rotational evolution with ChronoFlow.
+Refer to the ***tutorials*** folder for notebook examples that can be used to infer stellar ages and forward model rotational evolution with ChronoFlow. You can also refer to the `README.md` file in that folder for directions to set up the code in your local environment.
 
 ### Software dependencies
 
@@ -33,3 +33,7 @@ Please refer to each package for installation instructions (all are available us
 ## Citation
 
 If your work uses ChronoFlow, please cite [Van-Lane et al. (2025)](https://ui.adsabs.harvard.edu/abs/2024arXiv241212244V/abstract).
+
+## Bug Reports and Questions
+
+If you are having any issues with this code, feel free to open a Git Issue!
