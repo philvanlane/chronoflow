@@ -23,12 +23,18 @@ Refer to the ***tutorials*** folder for notebook examples that can be used to in
 
 ### Software dependencies
 
-To use ChronoFlow, the following dependencies are required:
+* ChronoFlow was developed using [python](https://www.python.org/) version `3.9.15`
+
+To use the ChronoFlow model, the following packages are required:
 
 * [numpy](https://pypi.org/project/numpy/) (version `1.24.0` was used to develop ChronoFlow)
-* [scipy](https://pypi.org/project/scipy/) (this is used to calculate posterior distributions; version `1.13.1` is used in these tutorials; only `scipy.special` is required)
 * [PyTorch](https://pypi.org/project/torch/) (version `1.13.1 ` was used to develop ChronoFlow; only the `torch` component is required)
 * [zuko](https://pypi.org/project/zuko/) (version `1.1.0` was used to develop ChronoFlow)
+
+To fully reproduce the tutorials, the following dependencies are also required:
+
+* [scipy](https://pypi.org/project/scipy/) (this is used to calculate posterior distributions; version `1.13.1` is used in these tutorials; only `scipy.special` is required)
+* [matplotlib](https://pypi.org/project/matplotlib/) (used for plotting; version `3.6.2` is used in these tutorials)
 
 Please refer to each package for installation instructions (all are available using `pip`).
 
