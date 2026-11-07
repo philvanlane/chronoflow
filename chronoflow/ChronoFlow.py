@@ -3,6 +3,9 @@ import scipy.special as sp
 import zuko
 import torch
 
+# np.trapz was removed in numpy 2.4; np.trapezoid exists from numpy 2.0
+_trapezoid = getattr(np, 'trapezoid', None) or np.trapz
+
 class ChronoFlow(object):
     """
     Class to handle working with the ChronoFlow model.
@@ -14,7 +17,12 @@ class ChronoFlow(object):
         Load the model from the specified path.
         """
         model = zuko.flows.NSF(1, 3, transforms=3)
-        weights = torch.load(weights_file)
+        weights = torch.load(weights_file, map_location='cpu')
+        # zuko >= 1.6 names the base distribution buffers loc/scale instead of _0/_1
+        expected = model.state_dict().keys()
+        if 'base.loc' in expected and 'base._0' in weights:
+            weights['base.loc'] = weights.pop('base._0')
+            weights['base.scale'] = weights.pop('base._1')
         model.load_state_dict(weights)
         return model
 
@@ -208,7 +216,7 @@ class ChronoFlow(object):
 
         # Convert to probability and normalize
         post = np.exp(logPost)
-        post /= np.trapz(post,logA_Myr_grid)
+        post /= _trapezoid(post,logA_Myr_grid)
 
         return post
 
