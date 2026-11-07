@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chronoflow"
+version = "0.1.0"
+description = "Data-driven gyrochronology with normalizing flows"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = ["numpy", "scipy", "torch", "zuko"]
+
+[project.urls]
+Homepage = "https://github.com/philvanlane/chronoflow"
+
+[tool.setuptools]
+packages = ["chronoflow"]
+
+[tool.setuptools.package-data]
+chronoflow = ["model_artifacts/weights.pth"]
